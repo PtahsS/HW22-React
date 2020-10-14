@@ -16,7 +16,8 @@ const style = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column"
+        flexDirection: "column",
+        width: "100%"
     },
     footer: {
         padding: "100px"

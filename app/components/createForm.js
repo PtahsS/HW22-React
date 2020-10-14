@@ -118,8 +118,8 @@ const style = StyleSheet.create({
                 </div>
                 <h4>Step 3. Choose category:</h4>
                 <div className={css(style.formTags)}>
-                    {categories.map(category=> (
-                        <button 
+                    {categories.map((category, index)=> (
+                        <button key={index}
                             onClick={handlerChange} 
                             style={getCategory.includes(category) 
                                 ? {background: "#555", color: "white"}

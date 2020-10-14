@@ -24,6 +24,13 @@ const style = StyleSheet.create({
        padding: "5px",
        textDecoration: "none",
        color: "black"
+   },
+   noteComplete: {
+       color: "lightgrey",
+
+       "& a": {
+           textDecoration: "line-through"
+       }
    }
     
 });
@@ -55,12 +62,17 @@ const NoteList = ({ notes, categories, handlerComplete, handlerDelete}) =>{
             
     }
 
+    const noteclasses = note => 
+        classnames(css(style.listItem), {
+            [css(style.noteComplete)]: note.complete,
+        })
+
    
     return (
         <div>
         <h2 className={css(style.articleList)}>ARTICLE LIST</h2>
-        {categories.map(category=> (
-                        <button 
+        {categories.map((category, index)=> (
+                        <button key={index}
                          onClick={handlerChange} 
                             style={getCategory.includes(category) 
                                 ? {background: "#555", color: "white"} 
@@ -72,8 +84,8 @@ const NoteList = ({ notes, categories, handlerComplete, handlerDelete}) =>{
                     ))}
         <ul>
             {displayNotes.map(note=> (
-                   <li key={note.id}  className={css(style.listItem)}>
-                        <Link to={`/note/${note.id}`} className={css(style.title)}>
+                   <li key={note.id}  className={noteclasses(note)}>
+                        <Link to={`/note/${note.id}`} className={css(style.title)} >
                         <span>{note.title}</span>   
                         </Link>
                         <input
