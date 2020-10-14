@@ -36,27 +36,18 @@ const style = StyleSheet.create({
 });
 
 
-const NoteList = ({ notes, categories, handlerComplete, handlerDelete}) =>{
-    const [getCategory, setCategory] = useState([]);
+const NoteList = ({ notes, categories, getSelectedCategory, handlerSelectCategories, handlerComplete, handlerDelete}) =>{
 
-    const handlerChange = ({target}) =>{
-        let newCat = target.innerText;
-        if(getCategory.includes(newCat)) {
-            setCategory(getCategory.filter(cat => cat !== newCat))
-        } else {
-            setCategory([newCat, ...getCategory])
-        }        
-        console.log(getCategory)
-    }
+    
     
 
     let displayNotes = []
-    if(getCategory.length === 0) {
+    if(getSelectedCategory.length === 0) {
         displayNotes= notes
     } else {
         displayNotes= notes.filter( note => 
             note.category.some(tag =>
-                getCategory.some(tag2 => tag === tag2)
+                getSelectedCategory.some(tag2 => tag === tag2)
                 )
              )
             
@@ -73,8 +64,8 @@ const NoteList = ({ notes, categories, handlerComplete, handlerDelete}) =>{
         <h2 className={css(style.articleList)}>ARTICLE LIST</h2>
         {categories.map((category, index)=> (
                         <button key={index}
-                         onClick={handlerChange} 
-                            style={getCategory.includes(category) 
+                         onClick={handlerSelectCategories} 
+                            style={getSelectedCategory.includes(category) 
                                 ? {background: "#555", color: "white"} 
                                 : {background: "#aaa"}
                             }

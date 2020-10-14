@@ -28,6 +28,17 @@ const App = () => {
     console.log('articles', articles)
     const [notes, setNotes] = useState(articles);
     const [categories, setCategories] = useState(["animals", "food", "tourism", "machines", "philosophy", "marine", "history", "games"]);
+    const [getSelectedCategory, setSelectedCategory] = useState([]);
+
+    const selectCategories = ({target}) =>{
+        let newCat = target.innerText;
+        if(getSelectedCategory.includes(newCat)) {
+            setSelectedCategory(getSelectedCategory.filter(cat => cat !== newCat))
+        } else {
+            setSelectedCategory([newCat, ...getSelectedCategory])
+        }        
+        console.log(getSelectedCategory)
+    }
 
     const createNoteCallBack = note => setNotes([note, ...notes]);
 
@@ -55,6 +66,8 @@ return(
                         <HomePage
                             notes = {notes}
                             categories={categories}
+                            getSelectedCategory={getSelectedCategory}
+                            handlerSelectCategories = {selectCategories}
                             handlerSubmit = {createNoteCallBack}
                             handlerComplete = {completeNoteCallBack}
                             handlerDelete = {deleteNoteCallBack}
